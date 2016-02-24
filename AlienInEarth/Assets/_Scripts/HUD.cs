@@ -12,12 +12,12 @@ public class HUD : MonoBehaviour {
     public Image HeartUI_4;
 
     //Declare private variables
-    private PlayerController _Player;
+    private AlienController _Player;
 
 	// Use this for initialization
 	void Start () {
 
-        this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<AlienController>();
 
 	}
 	

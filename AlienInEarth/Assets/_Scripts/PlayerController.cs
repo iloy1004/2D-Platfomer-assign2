@@ -162,4 +162,24 @@ public class PlayerController : MonoBehaviour {
         //Restart the game
         Application.LoadLevel(Application.loadedLevel);
     }
+
+    public void Damage(int dmg)
+    {
+        this.curHealth -= dmg;
+        gameObject.GetComponent<Animation>().Play("knockback");
+    }
+
+    //When player hit the spikes, make the motion
+    public IEnumerator Knockback(float knockDur, float knockPwr, Vector3 knockbackDir)
+    {
+        float timer = 0;
+
+        while(knockDur > timer)
+        {
+            timer += Time.deltaTime;
+            this._rigidBody2d.AddForce(new Vector3(knockbackDir.x * -100, knockbackDir.y * knockPwr, transform.position.z));
+        }
+
+        yield return 0;
+    }
 }
