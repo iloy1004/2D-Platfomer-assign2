@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour {
     public float jumpForce;
     public Transform groundCheck;
 
+    //states
+    public int curHealth;
+    public int maxHealth = 100;
+
     // PRIVATE Instance variables
     private Animator _animator;
     private float _move;
@@ -48,6 +52,8 @@ public class PlayerController : MonoBehaviour {
         this._move = 0f;
         this._jump = 0f;
         this._facingRight = true;
+
+        this.curHealth = this.maxHealth;
         
     }
 
@@ -60,9 +66,7 @@ public class PlayerController : MonoBehaviour {
                             this._transform.position, 
                             this.groundCheck.position, 
                             1 << LayerMask.NameToLayer("Ground"));
-
         
-
         float forceX = 0f;
         float forceY = 0f;
 
@@ -129,6 +133,16 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log(forceX);
         //Apply forces to the player
         this._rigidBody2d.AddForce(new Vector2(forceX, forceY));
+
+        if(this.curHealth > this.maxHealth)
+        {
+            this.curHealth = this.maxHealth;
+        }
+
+        if(this.curHealth <= 0)
+        {
+            Die();
+        }
     }
 
     private void _flip()
@@ -141,5 +155,11 @@ public class PlayerController : MonoBehaviour {
         {
             this._transform.localScale = new Vector2(-1, 1);
         }
+    }
+
+    void Die()
+    {
+        //Restart the game
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
