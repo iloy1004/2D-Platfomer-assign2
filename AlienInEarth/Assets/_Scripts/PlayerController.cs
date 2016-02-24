@@ -38,20 +38,21 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         //Initialize public instance variables
-        this.velocityRange = new VelocityRange(300f, 800f);
+        this.velocityRange = new VelocityRange(300f, 30000f);
         
 
         //set private instance variables
         this._animator = gameObject.GetComponent<Animator>();
+        this._transform = gameObject.GetComponent<Transform>();
+        this._rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
         this._move = 0f;
         this._jump = 0f;
         this._facingRight = true;
-        this._transform = gameObject.GetComponent<Transform>();
-        this._rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         this._isGrounded = Physics2D.Linecast(
                             this._transform.position, 
