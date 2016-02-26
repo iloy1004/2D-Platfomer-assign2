@@ -18,7 +18,7 @@ public class HUD : MonoBehaviour {
 	void Start () {
 
         //this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        Debug.Log(this._Player.curHealth);
+        
 
 	}
 	
