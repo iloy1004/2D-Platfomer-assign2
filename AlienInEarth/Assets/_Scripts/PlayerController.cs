@@ -25,9 +25,10 @@ public class PlayerController : MonoBehaviour {
     public float jumpForce;
     public Transform groundCheck;
 
+
     //states
-    public int curHealth;
-    public int maxHealth = 100;
+    public int curHealth = 4;
+    public int maxHealth = 4;
 
     // PRIVATE Instance variables
     private Animator _animator;
@@ -38,11 +39,20 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D _rigidBody2d;
     private bool _isGrounded;
 
+    //Set audio variables
+    private AudioSource[] _audioSources;
+    private AudioSource _jumpSound;
+    private AudioSource _coinSound;
+    private AudioSource _hurtSound;
+    private AudioSource _lazerSound;
+   
+
+
     // Use this for initialization
     void Start()
     {
         //Initialize public instance variables
-        this.velocityRange = new VelocityRange(300f, 30000f);
+        this.velocityRange = new VelocityRange(300f, 10000f);
         
 
         //set private instance variables
@@ -60,7 +70,6 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
 
         this._isGrounded = Physics2D.Linecast(
                             this._transform.position, 
@@ -74,7 +83,7 @@ public class PlayerController : MonoBehaviour {
         float absVelX = Mathf.Abs(this._rigidBody2d.velocity.x);
         float absVelY = Mathf.Abs(this._rigidBody2d.velocity.y);
 
-        Debug.Log(this._isGrounded);
+        //Debug.Log(this._isGrounded);
 
         if (this._isGrounded)
         {
@@ -166,6 +175,7 @@ public class PlayerController : MonoBehaviour {
     public void Damage(int dmg)
     {
         this.curHealth -= dmg;
+        Debug.Log(this.curHealth);
         gameObject.GetComponent<Animation>().Play("knockback");
     }
 
@@ -177,9 +187,11 @@ public class PlayerController : MonoBehaviour {
         while(knockDur > timer)
         {
             timer += Time.deltaTime;
-            this._rigidBody2d.AddForce(new Vector3(knockbackDir.x * -100, knockbackDir.y * knockPwr, transform.position.z));
+            this._rigidBody2d.AddForce(new Vector3(knockbackDir.x * -50, knockbackDir.y * knockPwr, transform.position.z));
         }
 
         yield return 0;
     }
+
+
 }
