@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
 
@@ -41,17 +42,22 @@ public class Menu : MonoBehaviour {
 
     public void Restart()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        //Application.LoadLevel(Application.loadedLevel);
+
+        SceneManager.LoadScene("Main");
     }
 
     public void MainMenu()
     {
-        Application.LoadLevel(0);
+        //Application.LoadLevel(0);
+        SceneManager.LoadScene(0);
     }
 
     public void gameStart()
     {
-        Application.LoadLevel(1);
+        
+        //Application.LoadLevel(1);
+        SceneManager.LoadScene(1);
     }
 
     public void Quit()

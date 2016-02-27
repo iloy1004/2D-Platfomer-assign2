@@ -38,13 +38,13 @@ public class SpringController : MonoBehaviour {
             {
                 Debug.Log("Facing Left");
                 
-                StartCoroutine(this._Player.Knockback(0.02f, BounceForce, this._Player.transform.position, 500));
+                StartCoroutine(this._Player.Knockback(0.02f, BounceForce, this._Player.transform.position, 350));
             }
             //otherwise, player will jump in the right way
             else
             {
                 Debug.Log("Facing Right");
-                StartCoroutine(this._Player.Knockback(0.02f, BounceForce, this._Player.transform.position, -500));
+                StartCoroutine(this._Player.Knockback(0.02f, BounceForce, this._Player.transform.position, -400));
             }
 
             //this._animator.SetBool("isHit", false);

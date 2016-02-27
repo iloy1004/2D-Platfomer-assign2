@@ -10,15 +10,16 @@ public class HUD : MonoBehaviour {
     public Image HeartUI_2;
     public Image HeartUI_3;
     public Image HeartUI_4;
-
-    //Declare private variables
+    public Text Score;
     public PlayerController _Player;
 
-	// Use this for initialization
-	void Start () {
+    //Declare private variables
+    private string _txtScore;
 
-        //this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        
+
+
+    // Use this for initialization
+    void Start () {
 
 	}
 	
@@ -26,6 +27,7 @@ public class HUD : MonoBehaviour {
 	void Update () {
 
         this.DrawHUD(this._Player.curHealth);
+        this.DrawScore(this._Player.score);
 	}
 
     // Draw Current heart depends on player's current health score
@@ -65,5 +67,11 @@ public class HUD : MonoBehaviour {
                 HeartUI_4.sprite = HeartSprites[0];
                 break;
         }
+    }
+
+    void DrawScore(int curScore)
+    {
+        this._txtScore = "Score: " + curScore;
+        this.Score.text = this._txtScore;
     }
 }

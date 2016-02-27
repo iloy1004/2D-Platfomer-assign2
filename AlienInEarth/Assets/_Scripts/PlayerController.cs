@@ -26,9 +26,13 @@ public class PlayerController : MonoBehaviour {
     public Transform groundCheck;
 
 
-    //states
+    //Health states and scores
     public int curHealth = 4;
     public int maxHealth = 4;
+    public int score = 0;
+
+    //Game over UI
+    public GameObject GameoverUI;
 
     // PRIVATE Instance variables
     private Animator _animator;
@@ -46,8 +50,9 @@ public class PlayerController : MonoBehaviour {
     private AudioSource _powerUpSound;
     private AudioSource _deadSound;
     private AudioSource _hurtSound;
-    
-   
+    private AudioSource _gameover;
+    private AudioSource _backSound;
+
 
 
     // Use this for initialization
@@ -70,11 +75,14 @@ public class PlayerController : MonoBehaviour {
         // Setup AudioSources
         this._audioSources = gameObject.GetComponents<AudioSource>();
         this._jumpSound = this._audioSources[0];
-        this._coinSound = this._audioSources[1];
-        this._powerUpSound = this._audioSources[2];
-        this._deadSound = this._audioSources[3];
-        this._hurtSound = this._audioSources[4];
+        this._powerUpSound = this._audioSources[1];
+        this._deadSound = this._audioSources[2];
+        this._hurtSound = this._audioSources[3];
+        this._coinSound = this._audioSources[4];
+        this._gameover = this._audioSources[5];
+        this._backSound = this._audioSources[6];
 
+        this.GameoverUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -136,6 +144,7 @@ public class PlayerController : MonoBehaviour {
 
             if (this._jump > 0)
             {
+                
                 //jump force
                 if (absVelY < this.velocityRange.maximum)
                 {
@@ -147,6 +156,7 @@ public class PlayerController : MonoBehaviour {
         {
             //call the jump animation
             this._animator.SetInteger("Anim_state", 2);
+            this._jumpSound.Play();
         }
 
         //Debug.Log(forceX);
@@ -181,22 +191,36 @@ public class PlayerController : MonoBehaviour {
         if(col.gameObject.CompareTag("Death"))
         {
             this._deadSound.Play();       
-            //this._transform.position = new Vector3(17.6f, -151.2f, 0);
-            Application.LoadLevel(Application.loadedLevel);
+            this._transform.position = new Vector3(83f, -151.27f, 0);
             this.curHealth -= 1;
+        }
+
+        if (col.gameObject.CompareTag("goldCoins"))
+        {
+            this._coinSound.Play();
+            Destroy(col.gameObject);
+            this.score += 300;
+        }
+
+        if (col.gameObject.CompareTag("bronzeCoins"))
+        {
+            this._coinSound.Play();
+            Destroy(col.gameObject);
+            this.score += 100;
         }
     }
 
     void Die()
     {
-        //Restart the game
-        Application.LoadLevel(Application.loadedLevel);
+        this._backSound.Stop();
+        this._gameover.Play();
+        this.GameoverUI.SetActive(true);
     }
 
     public void Damage(int dmg)
     {
         this.curHealth -= dmg;
-        Debug.Log(this.curHealth);
+        
         gameObject.GetComponent<Animation>().Play("knockback");
     }
 
@@ -207,10 +231,6 @@ public class PlayerController : MonoBehaviour {
 
         while(knockDur > timer)
         {
-
-            Debug.Log(Mathf.Abs(knockbackDir.y) * knockPwr);
-            Debug.Log("x position: " + knockbackDir.x * knockFacing);
-            
 
             timer += Time.deltaTime;
             this._rigidBody2d.AddForce(new Vector3(knockbackDir.x * knockFacing, Mathf.Abs(knockbackDir.y) * knockPwr, transform.position.z));
