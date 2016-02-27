@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour {
     public GameObject PauseUI;
 
     //Declare private variables
-    private bool _paused = false;
+    private bool _paused;
 
     void Start()
     {
@@ -47,6 +47,11 @@ public class Menu : MonoBehaviour {
     public void MainMenu()
     {
         Application.LoadLevel(0);
+    }
+
+    public void gameStart()
+    {
+        Application.LoadLevel(1);
     }
 
     public void Quit()

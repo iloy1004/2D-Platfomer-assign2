@@ -43,8 +43,10 @@ public class PlayerController : MonoBehaviour {
     private AudioSource[] _audioSources;
     private AudioSource _jumpSound;
     private AudioSource _coinSound;
+    private AudioSource _powerUpSound;
+    private AudioSource _deadSound;
     private AudioSource _hurtSound;
-    private AudioSource _lazerSound;
+    
    
 
 
@@ -64,7 +66,15 @@ public class PlayerController : MonoBehaviour {
         this._facingRight = true;
 
         this.curHealth = this.maxHealth;
-        
+
+        // Setup AudioSources
+        this._audioSources = gameObject.GetComponents<AudioSource>();
+        this._jumpSound = this._audioSources[0];
+        this._coinSound = this._audioSources[1];
+        this._powerUpSound = this._audioSources[2];
+        this._deadSound = this._audioSources[3];
+        this._hurtSound = this._audioSources[4];
+
     }
 
     // Update is called once per frame
@@ -166,6 +176,17 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.CompareTag("Death"))
+        {
+            this._deadSound.Play();       
+            //this._transform.position = new Vector3(17.6f, -151.2f, 0);
+            Application.LoadLevel(Application.loadedLevel);
+            this.curHealth -= 1;
+        }
+    }
+
     void Die()
     {
         //Restart the game
@@ -180,14 +201,19 @@ public class PlayerController : MonoBehaviour {
     }
 
     //When player hit the spikes, make the motion
-    public IEnumerator Knockback(float knockDur, float knockPwr, Vector3 knockbackDir)
+    public IEnumerator Knockback(float knockDur, float knockPwr, Vector3 knockbackDir, float knockFacing)
     {
         float timer = 0;
 
         while(knockDur > timer)
         {
+
+            Debug.Log(Mathf.Abs(knockbackDir.y) * knockPwr);
+            Debug.Log("x position: " + knockbackDir.x * knockFacing);
+            
+
             timer += Time.deltaTime;
-            this._rigidBody2d.AddForce(new Vector3(knockbackDir.x * -50, knockbackDir.y * knockPwr, transform.position.z));
+            this._rigidBody2d.AddForce(new Vector3(knockbackDir.x * knockFacing, Mathf.Abs(knockbackDir.y) * knockPwr, transform.position.z));
         }
 
         yield return 0;
