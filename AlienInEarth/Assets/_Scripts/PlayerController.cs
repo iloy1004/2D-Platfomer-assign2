@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour {
     public int curHealth = 4;
     public int maxHealth = 4;
     public int score = 0;
+    public bool canDoubleJump;
+    //public Animation hurtAnim;
+
 
     //Game over UI
     public GameObject GameoverUI;
@@ -98,72 +101,79 @@ public class PlayerController : MonoBehaviour {
         float forceY = 0f;
 
         //get absolute value of velocity for game object
-        float absVelX = Mathf.Abs(this._rigidBody2d.velocity.x);
-        float absVelY = Mathf.Abs(this._rigidBody2d.velocity.y);
+        float VelX = this._rigidBody2d.velocity.x;
+        float VelY = this._rigidBody2d.velocity.y;
 
-        //Debug.Log(this._isGrounded);
+        this._animator.SetBool("isGrounded", this._isGrounded);
+        this._animator.SetFloat("Speed", Mathf.Abs(this._rigidBody2d.velocity.x));
 
-        if (this._isGrounded)
+
+        this._move = Input.GetAxis("Horizontal");
+        this._jump = Input.GetAxis("Vertical");
+
+        //Move the player
+        this._rigidBody2d.AddForce((Vector2.right * this.moveForce) * this._move);
+
+        if (this._move < -0.1f)
         {
-            //get a number between -1 to 1 for both Horizontal and Vertical Axes
-            this._move = Input.GetAxis("Horizontal");
-            this._jump = Input.GetAxis("Vertical");
 
-            if (this._move != 0)
+            this._facingRight = false;
+            this._flip();
+        }
+        else if(this._move > 0.1f)
+        {
+            //this._rigidBody2d.AddForce(Vector2.right * this.moveForce * this._move);
+            this._facingRight = true;
+            this._flip();
+        }
+        
+
+        if (VelX > this.velocityRange.maximum)
+        {
+            this._rigidBody2d.velocity = new Vector2(this.velocityRange.maximum, this._rigidBody2d.velocity.y);
+        }
+        if (VelX < -this.velocityRange.maximum)
+        {
+            this._rigidBody2d.velocity = new Vector2(-this.velocityRange.maximum, this._rigidBody2d.velocity.y);
+        }
+
+        if (VelY > this.velocityRange.maximum)
+        {
+            this._rigidBody2d.velocity = new Vector2(this._rigidBody2d.velocity.x, this.velocityRange.maximum);
+        }
+        if (VelY < -this.velocityRange.maximum)
+        {
+            this._rigidBody2d.velocity = new Vector2(this._rigidBody2d.velocity.x, -this.velocityRange.maximum);
+        }
+
+        //Jump 
+        if (Input.GetButtonDown("Jump"))
+        {
+
+
+            if(this._isGrounded)
             {
-                if (this._move > 0)
-                {
-                    if(absVelX < this.velocityRange.maximum)
-                    {
-                        forceX = this.moveForce;
-                    }
-                    this._facingRight = true;
-                    this._flip();
-
-                    //move force
-                }
-                if (this._move < 0)
-                {
-                    if (absVelX < this.velocityRange.maximum)
-                    {
-                        forceX = -this.moveForce;
-                    }
-
-                    this._facingRight = false;
-                    this._flip();
-
-                    //move force
-                }
-            
-                this._animator.SetInteger("Anim_state", 1);
+                this._rigidBody2d.AddForce(Vector2.up * this.jumpForce);
+                this.canDoubleJump = true;
             }
             else
             {
-                this._animator.SetInteger("Anim_state", 0);
-            }
-
-            if (this._jump > 0)
-            {
-                
-                //jump force
-                if (absVelY < this.velocityRange.maximum)
+                if(this.canDoubleJump)
                 {
-                    forceY = this.jumpForce;
+                    this.canDoubleJump = false;
+                    this._rigidBody2d.velocity = new Vector2(this._rigidBody2d.velocity.x, 0);
+                    this._rigidBody2d.AddForce(Vector2.up * this.jumpForce / 1.75f);
+
                 }
             }
-        }
-        else
-        {
-            //call the jump animation
-            this._animator.SetInteger("Anim_state", 2);
             this._jumpSound.Play();
+
+
         }
 
-        //Debug.Log(forceX);
-        //Apply forces to the player
-        this._rigidBody2d.AddForce(new Vector2(forceX, forceY));
+        
 
-        if(this.curHealth > this.maxHealth)
+        if (this.curHealth > this.maxHealth)
         {
             this.curHealth = this.maxHealth;
         }
@@ -197,9 +207,10 @@ public class PlayerController : MonoBehaviour {
 
         if (col.gameObject.CompareTag("goldCoins"))
         {
+            Debug.Log("Touch the gold coin");
             this._coinSound.Play();
             Destroy(col.gameObject);
-            this.score += 300;
+            this.score += 200;
         }
 
         if (col.gameObject.CompareTag("bronzeCoins"))
@@ -220,8 +231,8 @@ public class PlayerController : MonoBehaviour {
     public void Damage(int dmg)
     {
         this.curHealth -= dmg;
-        
-        gameObject.GetComponent<Animation>().Play("knockback");
+        //hurtAnim.Play();
+        gameObject.GetComponent<Animation>().Play("hurt");
     }
 
     //When player hit the spikes, make the motion

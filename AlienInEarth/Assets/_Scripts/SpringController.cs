@@ -6,13 +6,13 @@ public class SpringController : MonoBehaviour {
     //Declare public variables
     public float BounceForce = 10f;
 
-    private PlayerController _Player;
+    public PlayerController _Player;
     private Animator _animator;
     private Transform _transform;
 
     // Use this for initialization
     void Start () {
-        this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        //this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         
         //set private instance variables
         this._animator = gameObject.GetComponent<Animator>();
@@ -38,7 +38,7 @@ public class SpringController : MonoBehaviour {
             {
                 Debug.Log("Facing Left");
                 
-                StartCoroutine(this._Player.Knockback(0.02f, BounceForce, this._Player.transform.position, 350));
+                StartCoroutine(this._Player.Knockback(0.02f, BounceForce, this._Player.transform.position, -600));
             }
             //otherwise, player will jump in the right way
             else

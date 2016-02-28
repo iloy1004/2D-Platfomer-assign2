@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\CameraFollow.cs" />
     <Compile Include="Assets\_Scripts\CoinController.cs" />
+    <Compile Include="Assets\_Scripts\FlyingEneController.cs" />
     <Compile Include="Assets\_Scripts\HUD.cs" />
     <Compile Include="Assets\_Scripts\HomeMenu.cs" />
     <Compile Include="Assets\_Scripts\Menu.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\_Scripts\SpawnController.cs" />
     <Compile Include="Assets\_Scripts\Spikes.cs" />
     <Compile Include="Assets\_Scripts\SpringController.cs" />
+    <Compile Include="Assets\_Scripts\WalkingEneController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

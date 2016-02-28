@@ -4,12 +4,12 @@ using System.Collections;
 public class Spikes : MonoBehaviour {
 
     //Declare private variables
-    private PlayerController _Player;
+    public PlayerController _Player;
 
 
     // Use this for initialization
     void Start () {
-        this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        //this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 	
 	void OnTriggerEnter2D(Collider2D col)
@@ -18,6 +18,8 @@ public class Spikes : MonoBehaviour {
         {
             this._Player.Damage(1);
             StartCoroutine(this._Player.Knockback(0.02f, 50f, this._Player.transform.position, -50f));
+            
+            //gameObject.GetComponent<Animation>().Play("hurt");
         }
     }
 
