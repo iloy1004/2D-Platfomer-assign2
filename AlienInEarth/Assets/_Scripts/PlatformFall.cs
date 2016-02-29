@@ -6,12 +6,12 @@ public class PlatformFall : MonoBehaviour {
     public float fallDelay;
 
     private Rigidbody2D _myBody;
-    private PlayerController _Player;
+    //private PlayerController _Player;
 
     // Use this for initialization
     void Start () {
         this._myBody = gameObject.GetComponent<Rigidbody2D>();
-        this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        //this._Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 	
 	// Update is called once per frame

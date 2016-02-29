@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour {
     // PRIVATE Instance variables
     private Animator _animator;
     private float _move;
-    private float _jump;
     private bool _facingRight;
     private Transform _transform;
     private Rigidbody2D _rigidBody2d;
@@ -70,7 +69,6 @@ public class PlayerController : MonoBehaviour {
         this._transform = gameObject.GetComponent<Transform>();
         this._rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
         this._move = 0f;
-        this._jump = 0f;
         this._facingRight = true;
 
         this.curHealth = this.maxHealth;
@@ -96,9 +94,6 @@ public class PlayerController : MonoBehaviour {
                             this._transform.position, 
                             this.groundCheck.position, 
                             1 << LayerMask.NameToLayer("Ground"));
-        
-        float forceX = 0f;
-        float forceY = 0f;
 
         //get absolute value of velocity for game object
         float VelX = this._rigidBody2d.velocity.x;
@@ -109,8 +104,7 @@ public class PlayerController : MonoBehaviour {
 
 
         this._move = Input.GetAxis("Horizontal");
-        this._jump = Input.GetAxis("Vertical");
-
+   
         //Move the player
         this._rigidBody2d.AddForce((Vector2.right * this.moveForce) * this._move);
 
@@ -162,7 +156,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     this.canDoubleJump = false;
                     this._rigidBody2d.velocity = new Vector2(this._rigidBody2d.velocity.x, 0);
-                    this._rigidBody2d.AddForce(Vector2.up * this.jumpForce / 1.75f);
+                    this._rigidBody2d.AddForce(Vector2.up * this.jumpForce / 1.95f);
 
                 }
             }
@@ -171,7 +165,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        
+        //this._checkBounds();
 
         if (this.curHealth > this.maxHealth)
         {
@@ -196,12 +190,28 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void _checkBounds()
+    {
+        if (this._transform.position.y > 2300f)
+        {
+            this._transform.position = new Vector3(this._transform.position.x, 2300f, 0);
+        }
+        if (this._transform.position.x < -1200.9f)
+        {
+            this._transform.position = new Vector3(-146.7f, this._transform.position.y, 0);
+        }
+        if (this._transform.position.x > 1445.2f)
+        {
+            this._transform.position = new Vector3(1445.2f, this._transform.position.y, 0);
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("Death"))
         {
             this._deadSound.Play();       
-            this._transform.position = new Vector3(83f, -151.27f, 0);
+            this._transform.position = new Vector3(-133.9f, -157.4f, 0);
             this.curHealth -= 1;
         }
 
@@ -219,6 +229,13 @@ public class PlayerController : MonoBehaviour {
             Destroy(col.gameObject);
             this.score += 100;
         }
+
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(col.gameObject);
+            this.Damage(1);
+            StartCoroutine(this.Knockback(0.02f, 100f, this._transform.position, -50f));
+        }
     }
 
     void Die()
@@ -231,8 +248,8 @@ public class PlayerController : MonoBehaviour {
     public void Damage(int dmg)
     {
         this.curHealth -= dmg;
-        //hurtAnim.Play();
-        gameObject.GetComponent<Animation>().Play("hurt");
+        this._hurtSound.Play();
+        //gameObject.GetComponent<Animation>().Play("hurt");
     }
 
     //When player hit the spikes, make the motion
