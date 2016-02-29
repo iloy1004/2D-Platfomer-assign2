@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 //Velocity range utility class
 [System.Serializable]
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     public float moveForce;
     public float jumpForce;
     public Transform groundCheck;
+    public Text ScoreLabel;
 
 
     //Health states and scores
@@ -238,7 +240,7 @@ public class PlayerController : MonoBehaviour {
             Destroy(col.gameObject);
             this.Damage(1);
             gameObject.GetComponent<Animation>().Play("hurt");
-            StartCoroutine(this.Knockback(0.02f, 100f, this._transform.position, -50f));
+            StartCoroutine(this.Knockback(0.02f, 50f, this._transform.position, -50f));
         }
 
         if (col.gameObject.CompareTag("final"))
@@ -252,6 +254,9 @@ public class PlayerController : MonoBehaviour {
         this._backSound.Stop();
         this._gameover.Play();
         this.GameoverUI.SetActive(true);
+        this.ScoreLabel.text = "Score: " + this.score;
+        this.ScoreLabel.enabled = true;
+
     }
 
     void GameClear()
@@ -259,6 +264,7 @@ public class PlayerController : MonoBehaviour {
         this._backSound.Stop();
         this._gameClear.Play();
         this.GameClearUI.SetActive(true);
+        
     }
 
     public void Damage(int dmg)

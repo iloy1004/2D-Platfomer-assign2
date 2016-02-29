@@ -4,7 +4,7 @@ using System.Collections;
 public class SpringController : MonoBehaviour {
 
     //Declare public variables
-    public float BounceForce = 10f;
+    public float BounceForce = 5f;
 
     public PlayerController _Player;
     private Animator _animator;
