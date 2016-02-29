@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CoinController : MonoBehaviour
 {
-    public int maxCoins = 150;
+    public int maxCoins = 100;
     public int verticalMin = 120;
     public int verticalMax = 2300;
     public int horizontalMin = -1200;

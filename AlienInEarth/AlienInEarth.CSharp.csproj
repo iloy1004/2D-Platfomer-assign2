@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\CameraFollow.cs" />
     <Compile Include="Assets\_Scripts\CoinController.cs" />
-    <Compile Include="Assets\_Scripts\FlyingEneController.cs" />
     <Compile Include="Assets\_Scripts\HUD.cs" />
     <Compile Include="Assets\_Scripts\HomeMenu.cs" />
     <Compile Include="Assets\_Scripts\Menu.cs" />

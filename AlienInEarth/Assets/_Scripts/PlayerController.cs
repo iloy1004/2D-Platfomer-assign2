@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 
     //Game over UI
     public GameObject GameoverUI;
+    public GameObject GameClearUI;
 
     // PRIVATE Instance variables
     private Animator _animator;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour {
     private AudioSource _hurtSound;
     private AudioSource _gameover;
     private AudioSource _backSound;
+    private AudioSource _gameClear;
 
 
 
@@ -82,6 +84,7 @@ public class PlayerController : MonoBehaviour {
         this._coinSound = this._audioSources[4];
         this._gameover = this._audioSources[5];
         this._backSound = this._audioSources[6];
+        this._gameClear = this._audioSources[7];
 
         this.GameoverUI.SetActive(false);
     }
@@ -234,7 +237,13 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(col.gameObject);
             this.Damage(1);
+            gameObject.GetComponent<Animation>().Play("hurt");
             StartCoroutine(this.Knockback(0.02f, 100f, this._transform.position, -50f));
+        }
+
+        if (col.gameObject.CompareTag("final"))
+        {
+            GameClear();
         }
     }
 
@@ -243,6 +252,13 @@ public class PlayerController : MonoBehaviour {
         this._backSound.Stop();
         this._gameover.Play();
         this.GameoverUI.SetActive(true);
+    }
+
+    void GameClear()
+    {
+        this._backSound.Stop();
+        this._gameClear.Play();
+        this.GameClearUI.SetActive(true);
     }
 
     public void Damage(int dmg)
