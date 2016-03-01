@@ -1,4 +1,14 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: HUD.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 26, 2016
+Program description: This is for controlling of player's lives
+Revision history: 0.0 - set up 
+                  0.1 - made basic method
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 

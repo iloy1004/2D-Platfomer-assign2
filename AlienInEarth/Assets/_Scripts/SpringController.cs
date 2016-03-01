@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: SpringController.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 27, 2016
+Program description: Make the high jumping when player touch the spring
+Revision history: 0.0 - set up 
+                  0.1 - made basic method
+                  1.0 - Fixed the movement
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 
 public class SpringController : MonoBehaviour {

@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: CoinController.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 29, 2016
+Program description: Make the coins within the screen randomly.
+Revision history: 0.0 - set up 
+                  0.1 - made basic method
+                  1.0 - Added the type of coins as gold or bronze
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 
 public class CoinController : MonoBehaviour

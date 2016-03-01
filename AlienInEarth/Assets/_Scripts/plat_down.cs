@@ -1,4 +1,17 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: plat_down.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 28, 2016
+Program description: Don't use this code. This code is for falling of platforms after touching between player and ground.
+                     But it made the game too difficult.
+Revision history: 0.0 - set up 
+                  0.1 - made basic method
+                  1.0 - Complete the code
+----------------------------------------------------------------------------*/
+
+
+using UnityEngine;
 using System.Collections;
 
 public class plat_down : MonoBehaviour {

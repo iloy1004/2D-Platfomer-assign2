@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: CameraFollow.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 28, 2016
+Program description: THis program make the movement of Camera as following the player
+Revision history: 0.0 - Created document, and made basic methods, Start and Update()
+                  0.1 - Added the methods for the boundary of camera
+                  0.2 - Changed the number of boundary
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 
 public class CameraFollow : MonoBehaviour {

@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: PlayerController.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 29, 2016
+Program description: This is for the controlling of players including score, canvas UI
+Revision history: 0.0 - set up
+                  0.1 - made basic method
+                  0.2 - Added player movement
+                  0.3 - Added die and demange method
+                  0.4 - Added hurt, lives and score
+                  0.5 - Added sounds
+                  0.6 - Fixed movement
+                  0.7 - Added UI for game over, game clear, and pause
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 

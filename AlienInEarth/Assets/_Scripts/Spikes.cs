@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: Spikes.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 27, 2016
+Program description: This makes the damage for player and player's reaction.
+Revision history: 0.0 - set up 
+                  0.1 - made basic method
+                  0.2 - added the player's reaction
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 
 public class Spikes : MonoBehaviour {

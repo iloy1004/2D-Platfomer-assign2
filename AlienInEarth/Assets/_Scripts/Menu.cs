@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: Menu.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 27, 2016
+Program description: This program is for the screen of pause UI
+Revision history: 0.0 - set up 
+                  0.1 - made basic method
+                  1.0 - Fixed the text
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 

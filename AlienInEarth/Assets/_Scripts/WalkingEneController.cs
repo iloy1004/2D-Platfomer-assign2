@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------------------------------------
+Source file name: CoinController.cs
+Author's name: Jihee Seo
+Last modified by: Jihee Seo
+Last modified date: Feb 28, 2016
+Program description: This is for the movement of enemy
+Revision history: 0.0 - set up 
+                  0.1 - made basic method
+                  1.0 - set up the enemy's movement and duration to turn around.
+----------------------------------------------------------------------------*/
+
+using UnityEngine;
 using System.Collections;
 
 public class WalkingEneController : MonoBehaviour {
